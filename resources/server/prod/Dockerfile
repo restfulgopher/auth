@@ -13,4 +13,4 @@ RUN go install -v ./...
 
 EXPOSE 3000
 
-ENTRYPOINT ["auth", "--conf=resources/prod/conf.yml"]
+ENTRYPOINT ["auth", "--conf=resources/server/prod/conf.yml"]

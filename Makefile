@@ -22,6 +22,10 @@ db/up: ## start database container
 db/stop: ## stop and remove db container
 	@docker-compose rm -fsv mongodb
 
+.PHONY: db/provision
+db/provision: ## create db and collections
+	@docker exec -it auth-db mongo /etc/mongodb/mongo.js
+
 .PHONY: db/cli
 db/cli: ## enter in db cli mode
 	@docker exec -it auth-db mongo admin

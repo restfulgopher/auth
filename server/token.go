@@ -8,6 +8,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+type tokenResponse struct {
+	Token          string
+	ExpirationDate int64
+}
+
 // Render a template for retrieving a new token
 func (th *tmplHandler) getTokenHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -108,13 +113,7 @@ func (ah *accessHandler) postTokenHandler(w http.ResponseWriter, r *http.Request
 
 	w.WriteHeader(http.StatusCreated)
 
-	resp := struct {
-		token          string
-		expirationDate int64
-	}{
-		token,
-		exp,
-	}
+	resp := &tokenResponse{token, exp}
 
 	if err := ah.ExecuteTemplate(w, "token_success.tmpl", resp); err != nil {
 

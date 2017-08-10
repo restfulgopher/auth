@@ -16,7 +16,7 @@ test: ## start test container
 
 .PHONY: db/up
 db/up: ## start database container
-	@docker-compose up -d mongodb
+	@docker-compose up -d --build mongodb
 
 .PHONY: db/stop
 db/stop: ## stop and remove db container

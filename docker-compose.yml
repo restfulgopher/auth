@@ -22,7 +22,10 @@ services:
 
   mongodb:
     container_name: auth-db
-    image: mongo:3.4
+    image: alesr/restfulgopher-db
+    build:
+      context: .
+      dockerfile: resources/mongodb/Dockerfile
     networks:
       - restfulgophernet
     environment:

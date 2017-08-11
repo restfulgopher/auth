@@ -32,6 +32,7 @@ func Serve(configfile string) {
 	if err != nil {
 		log.Fatalf("failed to get access: %s", err)
 	}
+	defer acc.Close()
 
 	tmpl := template.Must(template.ParseGlob("templates/*"))
 

@@ -1,6 +1,6 @@
-# AUTH SERVER
+# AUTH SERVER [![CircleCI](https://circleci.com/gh/restfulgopher/auth.svg?style=svg)](https://circleci.com/gh/restfulgopher/auth)
 
-## How to:
+## HOWTO:
 
 Start mongodb `make db/up`
 
@@ -8,7 +8,7 @@ Create auth db, and user and token collections `make db/provision`
 
 Start auth server `make auth/up`
 
-## Available Commands
+## AVAILABLE COMMANDS:
 
 ```
 ------------------------------------------------------------------------

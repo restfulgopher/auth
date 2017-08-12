@@ -4,13 +4,15 @@ import (
 	"html"
 	"net/http"
 
+	"encoding/json"
+
 	"github.com/restfulgopher/auth/server/validation"
 	log "github.com/sirupsen/logrus"
 )
 
 type tokenResponse struct {
-	Token          string
-	ExpirationDate int64
+	Token          string `json:"token"`
+	ExpirationDate int64  `json:"expiration_date"`
 }
 
 // Render a template for retrieving a new token
@@ -111,18 +113,11 @@ func (ah *accessHandler) postTokenHandler(w http.ResponseWriter, r *http.Request
 
 	log.Infof("new token generated for user %s", user.Email)
 
-	w.WriteHeader(http.StatusCreated)
-
 	resp := &tokenResponse{token, exp}
 
-	if err := ah.ExecuteTemplate(w, "token_success.tmpl", resp); err != nil {
-
-		log.Warnf("could not execute success tmpl for post signup request: %s", err)
-
-		renderError(w, ah.Lookup("error.tmpl"), responseError{
-			Code:        http.StatusInternalServerError,
-			Description: "Internal Server Error",
-		})
-		return
-	}
+	// send token response to client
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Authorization", "Bearer "+token)
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(resp)
 }

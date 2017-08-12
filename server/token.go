@@ -117,7 +117,7 @@ func (ah *accessHandler) postTokenHandler(w http.ResponseWriter, r *http.Request
 
 	// send token response to client
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Authorization", "Bearer "+token)
+	w.Header().Set("Token", token)
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(resp)
 }

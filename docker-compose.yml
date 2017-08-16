@@ -4,7 +4,7 @@ services:
 
   test:
     container_name: auth-server-test
-    image: alesr/restfulgopher-auth-server-test
+    image: alesr/restfulgopher-auth_test
     networks:
       - restfulgophernet
     build:
@@ -13,7 +13,7 @@ services:
 
   server:
     container_name: auth-server
-    image: alesr/restfulgopher-auth-server
+    image: alesr/restfulgopher-auth_server
     networks:
       - restfulgophernet
     build:
@@ -22,7 +22,7 @@ services:
 
   mongodb:
     container_name: auth-db
-    image: alesr/restfulgopher-db
+    image: alesr/restfulgopher-auth_db
     build:
       context: .
       dockerfile: resources/mongodb/Dockerfile
@@ -39,8 +39,8 @@ services:
       - "27017:27017"
 
   nginx:
-    container_name: auth-nginx
-    image: alesr/restfulgopher-auth-nginx
+    container_name: auth-proxy
+    image: alesr/restfulgopher-auth-proxy
     ports:
       - "80:80"
     links:
